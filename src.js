@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Netflix Chat Tog
+// @name         Netflix Chat Toggle
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Toggle the chat from netflix party for a pretty view
