@@ -10,12 +10,13 @@
 
 (function() {
     'use strict';
-
+    const btnChatTglId = "facebamm-netflx-party-btn";
     const enabledSvg = "<g transform=\"matrix(1.42649,0,0,1.64595,-3.29215,-14.8249)\"><text x=\"1.757px\" y=\"21.079px\" style=\"font-family:'Arial-Black', 'Arial', sans-serif;font-weight:900;font-size:12px;fill:rgb(255,0,0);\">NP</text></g>";
     const disabledSvg = "<g transform=\"matrix(1.42649,0,0,1.64595,-3.29215,-14.8249)\"><text x=\"1.757px\" y=\"21.079px\" style=\"font-family:'Arial-Black', 'Arial', sans-serif;font-weight:900;font-size:12px;fill:rgb(64,64,64);\">NP</text></g>";
 
     const btnChatTgl = document.createElement("div");
     btnChatTgl.className = "touchable PlayerControls--control-element nfp-popup-control";
+    btnChatTgl.id = btnChatTglId;
 
     const btnChatTglBtn = document.createElement("buttton");
     btnChatTglBtn.className = "touchable PlayerControls--control-element nfp-button-control default-control-button button-nfplayerReportAProblem";
@@ -53,8 +54,22 @@
 
     });
 
-    var ctrWaiter = setInterval(frame, 100);
+    var ctrWaiter = setInterval(frame, 330);
+    var oldURL = window.location.href;
+    var currentURL = window.location.href;
 
+    var urlTracker = setInterval(function() {
+            urlTrackerFunc(window.location.href);
+    }, 2000);
+
+    function urlTrackerFunc(currentURL) {
+        if(currentURL != oldURL){
+           ctrWaiter = setInterval(frame, 330);
+           oldURL = currentURL;
+        }
+
+        oldURL = window.location.href;
+    }
     function frame() {
         var ctr = document.getElementsByClassName("PlayerControlsNeo__button-control-row")[0];
 
@@ -62,6 +77,8 @@
             var ctrIssuBtn = document.getElementsByClassName("touchable ReportAProblemPopupContainer PlayerControls--control-element nfp-popup-control")[0];
             ctr.insertBefore(btnChatTgl, ctrIssuBtn);
             clearInterval(ctrWaiter);
+            ctrWaiter = undefined;
         }
+
     }
 })();
